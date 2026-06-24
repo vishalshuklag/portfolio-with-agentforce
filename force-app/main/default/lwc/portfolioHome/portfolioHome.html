@@ -238,18 +238,29 @@
             <p class="section-eyebrow">Toolkit</p>
             <h2 class="section-title">Skills</h2>
           </div>
-          <div class="skill-groups">
-            <template for:each={skillGroups} for:item="group">
-              <div key={group.key} class="skill-group">
-                <h3 class="skill-category">{group.category}</h3>
-                <div class="tags">
-                  <template for:each={group.skills} for:item="skill">
-                    <span key={skill.key} class="tag tag-lg"
-                      >{skill.label}</span
-                    >
+          <div class="grid grid-3">
+            <template for:each={skillItems} for:item="item">
+              <article key={item.id} class="card">
+                <div class="card-body">
+                  <span class="card-icon">
+                    <lightning-icon
+                      icon-name={item.iconName}
+                      size="small"
+                    ></lightning-icon>
+                  </span>
+                  <h3 class="card-title">{item.title}</h3>
+                  <template lwc:if={item.hasDescription}>
+                    <p class="card-desc detail">{item.description}</p>
+                  </template>
+                  <template lwc:if={item.hasTags}>
+                    <div class="tags">
+                      <template for:each={item.tags} for:item="tag">
+                        <span key={tag.key} class="tag">{tag.label}</span>
+                      </template>
+                    </div>
                   </template>
                 </div>
-              </div>
+              </article>
             </template>
           </div>
         </section>

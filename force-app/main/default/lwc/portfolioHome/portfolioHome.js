@@ -342,40 +342,13 @@ export default class PortfolioHome extends LightningElement {
         return this.interestItems.length > 0;
     }
 
-    // ---------- Section: Skills (grouped by category) ----------
-    get skillGroups() {
-        if (!this.hasItems) {
-            return [];
-        }
-        const byCategory = new Map();
-        this.items.forEach((i) => {
-            if (this.classify(i.type) !== 'skill') {
-                return;
-            }
-            const category = i.subtitle && i.subtitle.trim() ? i.subtitle.trim() : 'General';
-            if (!byCategory.has(category)) {
-                byCategory.set(category, []);
-            }
-            const skills = byCategory.get(category);
-            skills.push({ key: i.id, label: i.title });
-            if (i.techStack) {
-                i.techStack.split(',').forEach((t, idx) => {
-                    const label = t.trim();
-                    if (label) {
-                        skills.push({ key: `${i.id}-t${idx}`, label });
-                    }
-                });
-            }
-        });
-        return Array.from(byCategory.entries()).map(([category, skills]) => ({
-            key: category,
-            category,
-            skills
-        }));
+    // ---------- Section: Skills (cards) ----------
+    get skillItems() {
+        return this.sectionItems('skill', false).map((i) => this.decorate(i));
     }
 
     get hasSkills() {
-        return this.skillGroups.length > 0;
+        return this.skillItems.length > 0;
     }
 
     // ---------- Section: AI usage (tools & workflow) ----------

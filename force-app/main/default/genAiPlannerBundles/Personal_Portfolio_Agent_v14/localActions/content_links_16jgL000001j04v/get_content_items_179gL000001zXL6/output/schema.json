@@ -1,0 +1,26 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "hasData" : {
+      "title" : "Has Data",
+      "description" : "True when at least one item was found",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : false
+    },
+    "items" : {
+      "title" : "Portfolio Items",
+      "description" : "Portfolio items with title, itemType, url, and details",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/c__PortfolioItemProvider$PortfolioItem"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

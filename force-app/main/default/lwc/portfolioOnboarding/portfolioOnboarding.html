@@ -1,0 +1,168 @@
+<template>
+  <lightning-card icon-name="utility:einstein">
+    <span slot="title" class="title">Set up your portfolio with AI</span>
+
+    <div class="slds-var-p-horizontal_medium slds-var-p-bottom_medium body">
+      <p class="lead">
+        Paste your resume below and the Salesforce Models API will draft your
+        portfolio — bio, experience, education, projects, and certifications —
+        as ready-to-publish records.
+      </p>
+
+      <!-- Input -->
+      <template lwc:if={showInput}>
+        <lightning-textarea
+          class="resume-input"
+          name="resume"
+          label="Resume text"
+          placeholder="Paste your full resume here — work history, education, projects, skills, certifications, and any links."
+          value={resumeText}
+          onchange={handleResumeChange}
+          disabled={busy}
+        ></lightning-textarea>
+        <p class="char-count">{charCount} characters</p>
+
+        <div class="controls">
+          <lightning-combobox
+            class="model-picker"
+            label="AI model"
+            value={selectedModel}
+            options={modelOptions}
+            onchange={handleModelChange}
+            disabled={busy}
+          ></lightning-combobox>
+          <lightning-input
+            type="toggle"
+            label="Also store full resume for the AI assistant"
+            checked={includeResume}
+            onchange={handleIncludeChange}
+            disabled={busy}
+          ></lightning-input>
+        </div>
+
+        <div class="actions">
+          <lightning-button
+            variant="brand"
+            label="Generate portfolio"
+            icon-name="utility:einstein"
+            onclick={handleGenerate}
+            disabled={generateDisabled}
+          ></lightning-button>
+          <template lwc:if={generating}>
+            <span class="status">
+              <lightning-spinner
+                size="small"
+                alternative-text="Generating"
+              ></lightning-spinner>
+              <span>Reading your resume…</span>
+            </span>
+          </template>
+        </div>
+      </template>
+
+      <!-- Preview -->
+      <template lwc:if={hasItems}>
+        <div class="preview-head">
+          <div class="preview-head-row">
+            <h3 class="preview-title">{itemCount} item(s) drafted</h3>
+            <div class="select-all">
+              <span class="selection-summary">{selectionSummary}</span>
+              <lightning-input
+                type="checkbox"
+                label="Select all"
+                checked={allSelected}
+                onchange={handleToggleAll}
+                disabled={busy}
+              ></lightning-input>
+            </div>
+          </div>
+          <p class="preview-sub">
+            Choose which items to add — uncheck anything you don't want to
+            create. You can edit any record afterwards.
+          </p>
+        </div>
+
+        <ul class="preview-list">
+          <template for:each={decoratedItems} for:item="item">
+            <li key={item.key} class={item.rowClass}>
+              <lightning-input
+                type="checkbox"
+                class="row-check"
+                variant="label-hidden"
+                label={item.name}
+                data-index={item.key}
+                checked={item.selected}
+                onchange={handleToggleItem}
+                disabled={busy}
+              ></lightning-input>
+              <div class="row-body">
+                <div class="row-top">
+                  <span class="type-pill">{item.itemType}</span>
+                  <template lwc:if={item.featured}>
+                    <span class="featured-pill">Featured</span>
+                  </template>
+                  <span class="row-name">{item.name}</span>
+                </div>
+                <template lwc:if={item.hasSubtitle}>
+                  <p class="row-subtitle">{item.subtitle}</p>
+                </template>
+                <template lwc:if={item.hasRange}>
+                  <p class="row-range">{item.range}</p>
+                </template>
+                <template lwc:if={item.hasDescription}>
+                  <p class="row-desc">{item.description}</p>
+                </template>
+              </div>
+            </li>
+          </template>
+        </ul>
+
+        <div class="actions">
+          <lightning-button
+            variant="brand"
+            label={createLabel}
+            icon-name="utility:save"
+            onclick={handleCreate}
+            disabled={createDisabled}
+          ></lightning-button>
+          <lightning-button
+            label="Start over"
+            onclick={handleReset}
+            disabled={busy}
+          ></lightning-button>
+          <template lwc:if={creating}>
+            <span class="status">
+              <lightning-spinner
+                size="small"
+                alternative-text="Creating"
+              ></lightning-spinner>
+              <span>Creating records…</span>
+            </span>
+          </template>
+        </div>
+      </template>
+
+      <!-- Success -->
+      <template lwc:if={showCreated}>
+        <div class="success">
+          <lightning-icon
+            icon-name="utility:success"
+            size="small"
+            variant="success"
+          ></lightning-icon>
+          <div>
+            <p class="success-title">{createdCount} record(s) saved.</p>
+            <p class="success-sub">
+              Open your portfolio site (and refresh) to see them live, or scroll
+              down to manage them.
+            </p>
+          </div>
+          <lightning-button
+            label="Add more"
+            onclick={handleReset}
+          ></lightning-button>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>

@@ -1,0 +1,28 @@
+{
+  "type" : "sfdc_cms__trustedSites",
+  "title" : "trustedSites",
+  "contentBody" : {
+    "trustedSites" : [ {
+      "isActive" : true,
+      "source" : "https://orgfarm-d093537e95-dev-ed.develop.my.salesforce.com",
+      "sourceName" : "orgfarm"
+    }, {
+      "isActive" : true,
+      "source" : "https://www.linkedin.com",
+      "sourceName" : "linkedin"
+    }, {
+      "isActive" : true,
+      "source" : "https://salesforcediaries.com/",
+      "sourceName" : "salesforcediaries"
+    }, {
+      "isActive" : true,
+      "source" : "https://www.youtube.com/",
+      "sourceName" : "youtube"
+    }, {
+      "isActive" : true,
+      "source" : "https://github.com",
+      "sourceName" : "github"
+    } ]
+  },
+  "urlName" : "trustedsites"
+}

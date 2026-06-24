@@ -1,0 +1,493 @@
+<template>
+    <lightning-card icon-name="utility:einstein">
+        <span slot="title" class="card-title-text">Portfolio Manager</span>
+        <span slot="actions">
+            <lightning-button
+                variant="brand"
+                label="New item"
+                icon-name="utility:add"
+                onclick={handleNew}
+            ></lightning-button>
+        </span>
+
+        <div class="slds-var-p-horizontal_medium slds-var-p-bottom_medium body">
+            <p class="subtle slds-var-m-bottom_small">
+                {itemCount} portfolio item(s). Create, edit, or remove them — and let AI draft the
+                descriptions and resume content.
+            </p>
+
+            <!-- Loading -->
+            <template lwc:if={loading}>
+                <div class="slds-align_absolute-center slds-var-p-vertical_large">
+                    <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+                </div>
+            </template>
+
+            <!-- List -->
+            <template lwc:if={hasItems}>
+                <ul class="item-list">
+                    <template for:each={decoratedItems} for:item="item">
+                        <li key={item.id} class="item-row">
+                            <div class="item-main">
+                                <div class="item-head">
+                                    <span class="item-name">{item.name}</span>
+                                    <span class={item.statusClass}>{item.statusLabel}</span>
+                                </div>
+                                <template lwc:if={item.hasSubtitle}>
+                                    <p class="item-subtitle">{item.subtitle}</p>
+                                </template>
+                                <div class="item-meta">
+                                    <lightning-icon
+                                        icon-name="utility:tag"
+                                        size="xx-small"
+                                        class="meta-icon"
+                                    ></lightning-icon>
+                                    <span>{item.type}</span>
+                                    <template lwc:if={item.hasUrl}>
+                                        <span class="dot">•</span>
+                                        <a href={item.url} target="_blank" rel="noopener noreferrer"
+                                            >Open link</a
+                                        >
+                                    </template>
+                                </div>
+                                <template lwc:if={item.description}>
+                                    <p class="item-desc">{item.description}</p>
+                                </template>
+                            </div>
+                            <div class="item-actions">
+                                <lightning-button-icon
+                                    icon-name="utility:edit"
+                                    alternative-text="Edit"
+                                    title="Edit"
+                                    data-id={item.id}
+                                    onclick={handleEdit}
+                                ></lightning-button-icon>
+                                <lightning-button-icon
+                                    icon-name="utility:delete"
+                                    variant="border-filled"
+                                    alternative-text="Delete"
+                                    title="Delete"
+                                    data-id={item.id}
+                                    onclick={handleAskDelete}
+                                ></lightning-button-icon>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+
+            <template lwc:if={error}>
+                <p class="empty">Couldn't load items. Check your access and try again.</p>
+            </template>
+
+            <template lwc:if={showEmpty}>
+                <div class="empty">
+                    <p>No portfolio items yet.</p>
+                    <lightning-button
+                        variant="brand"
+                        label="Create your first item"
+                        onclick={handleNew}
+                    ></lightning-button>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+
+    <!-- ============ Editor modal ============ -->
+    <template lwc:if={showEditor}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button
+                        class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close"
+                        onclick={handleCloseEditor}
+                    >
+                        <lightning-icon
+                            icon-name="utility:close"
+                            size="small"
+                            variant="inverse"
+                            alternative-text="Close"
+                        ></lightning-icon>
+                    </button>
+                    <h2 class="slds-modal__title">{editorTitle}</h2>
+                </header>
+
+                <div class="slds-modal__content slds-var-p-around_medium modal-body">
+                    <lightning-input
+                        label="Title"
+                        value={draft.name}
+                        onchange={handleNameChange}
+                        required
+                        disabled={busy}
+                    ></lightning-input>
+
+                    <lightning-input
+                        class="slds-var-m-top_small"
+                        label="Subtitle"
+                        value={draft.subtitle}
+                        onchange={handleSubtitleChange}
+                        placeholder="Role, company, issuer, or a short tagline"
+                        disabled={busy}
+                    ></lightning-input>
+
+                    <div class="grid-2 slds-var-m-top_small">
+                        <lightning-combobox
+                            label="Type"
+                            value={draft.type}
+                            options={typeOptions}
+                            onchange={handleTypeChange}
+                            placeholder="Choose a type"
+                            disabled={busy}
+                        ></lightning-combobox>
+                        <lightning-input
+                            type="number"
+                            label="Sort order"
+                            value={draft.sortOrder}
+                            onchange={handleSortChange}
+                            disabled={busy}
+                        ></lightning-input>
+                    </div>
+
+                    <template lwc:if={showCustomType}>
+                        <lightning-input
+                            class="slds-var-m-top_small"
+                            label="Custom type"
+                            value={draft.customType}
+                            onchange={handleCustomTypeChange}
+                            placeholder="e.g. Podcast, Award, Talk"
+                            disabled={busy}
+                        ></lightning-input>
+                    </template>
+
+                    <lightning-input
+                        class="slds-var-m-top_small"
+                        type="url"
+                        label="URL"
+                        value={draft.url}
+                        onchange={handleUrlChange}
+                        placeholder="https://"
+                        disabled={busy}
+                    ></lightning-input>
+
+                    <template lwc:if={showSecondary}>
+                        <lightning-input
+                            class="slds-var-m-top_small"
+                            type="url"
+                            label="Secondary URL"
+                            field-level-help="Optional second link, e.g. a source repo for a project or a companion video."
+                            value={draft.secondaryUrl}
+                            onchange={handleSecondaryUrlChange}
+                            placeholder="https://"
+                            disabled={busy}
+                        ></lightning-input>
+                    </template>
+
+                    <template lwc:if={showImage}>
+                        <lightning-input
+                            class="slds-var-m-top_small"
+                            type="url"
+                            label="Image URL"
+                            field-level-help="Screenshot, cover, or badge shown on the public site. External hosts need a CSP Trusted Site."
+                            value={draft.imageUrl}
+                            onchange={handleImageUrlChange}
+                            placeholder="https://"
+                            disabled={busy}
+                        ></lightning-input>
+                    </template>
+
+                    <template lwc:if={showTags}>
+                        <lightning-input
+                            class="slds-var-m-top_small"
+                            label="Tags / Tech stack"
+                            field-level-help="Comma-separated, shown as chips. E.g. Apex, LWC, Agentforce."
+                            value={draft.techStack}
+                            onchange={handleTechStackChange}
+                            placeholder="Apex, LWC, Agentforce"
+                            disabled={busy}
+                        ></lightning-input>
+                    </template>
+
+                    <template lwc:if={showDates}>
+                        <div class="grid-2 slds-var-m-top_small">
+                            <lightning-input
+                                type="date"
+                                label="Start date"
+                                value={draft.startDate}
+                                onchange={handleStartDateChange}
+                                disabled={busy}
+                            ></lightning-input>
+                            <lightning-input
+                                type="date"
+                                label="End date"
+                                field-level-help="Leave blank to show 'Present'."
+                                value={draft.endDate}
+                                onchange={handleEndDateChange}
+                                disabled={busy}
+                            ></lightning-input>
+                        </div>
+                    </template>
+
+                    <div class="grid-2 slds-var-m-top_small">
+                        <lightning-input
+                            type="toggle"
+                            label="Active (visible to the agent &amp; site)"
+                            checked={draft.active}
+                            onchange={handleActiveChange}
+                            disabled={busy}
+                        ></lightning-input>
+                        <template lwc:if={showFeatured}>
+                            <lightning-input
+                                type="toggle"
+                                label="Featured (highlight on site)"
+                                checked={draft.featured}
+                                onchange={handleFeaturedChange}
+                                disabled={busy}
+                            ></lightning-input>
+                        </template>
+                    </div>
+
+                    <lightning-combobox
+                        class="slds-var-m-top_medium"
+                        label="AI model"
+                        field-level-help="Salesforce-managed model used by the Generate buttons below."
+                        value={selectedModel}
+                        options={modelOptions}
+                        onchange={handleModelChange}
+                        disabled={busy}
+                    ></lightning-combobox>
+
+                    <!-- Description + AI -->
+                    <div class="ai-block slds-var-m-top_medium">
+                        <lightning-textarea
+                            label="Description"
+                            value={draft.description}
+                            onchange={handleDescriptionChange}
+                            disabled={busy}
+                        ></lightning-textarea>
+                        <div class="ai-row">
+                            <lightning-input
+                                class="ai-instruction"
+                                variant="label-hidden"
+                                placeholder="AI instruction (optional) — e.g. make it punchier"
+                                value={descInstruction}
+                                onchange={handleDescInstruction}
+                                disabled={busy}
+                            ></lightning-input>
+                            <lightning-button
+                                label="Preview prompt"
+                                icon-name="utility:preview"
+                                onclick={handlePreviewDescription}
+                                disabled={busy}
+                            ></lightning-button>
+                            <lightning-button
+                                variant="brand"
+                                label={descGenerateLabel}
+                                icon-name="utility:einstein"
+                                onclick={handleGenerateDescription}
+                                disabled={busy}
+                            ></lightning-button>
+                        </div>
+                        <template lwc:if={previewingDescription}>
+                            <div class="ai-status">
+                                <span class="spinner-box">
+                                    <lightning-spinner size="x-small" alternative-text="Loading"></lightning-spinner>
+                                </span>
+                                <span>Building prompt…</span>
+                            </div>
+                        </template>
+                        <template lwc:if={showDescPrompt}>
+                            <div class="prompt-preview">
+                                <div class="prompt-preview__head">
+                                    <span class="prompt-preview__title">
+                                        <lightning-icon
+                                            icon-name="utility:preview"
+                                            size="xx-small"
+                                            class="meta-icon"
+                                        ></lightning-icon>
+                                        Final prompt → {selectedModelLabel}
+                                    </span>
+                                    <span class="prompt-preview__actions">
+                                        <lightning-button-icon
+                                            icon-name="utility:copy_to_clipboard"
+                                            variant="border-filled"
+                                            alternative-text="Copy prompt"
+                                            title="Copy prompt"
+                                            onclick={handleCopyDescPrompt}
+                                        ></lightning-button-icon>
+                                        <lightning-button-icon
+                                            icon-name="utility:close"
+                                            variant="border-filled"
+                                            alternative-text="Hide prompt"
+                                            title="Hide prompt"
+                                            onclick={handleHideDescPrompt}
+                                        ></lightning-button-icon>
+                                    </span>
+                                </div>
+                                <textarea
+                                    class="prompt-preview__editor"
+                                    data-field="desc"
+                                    spellcheck="false"
+                                    oninput={handleDescPromptEdit}
+                                    disabled={busy}
+                                ></textarea>
+                                <p class="prompt-preview__note">
+                                    Edit this if you like — the exact text here is sent to the model
+                                    when you click Generate. Click Preview prompt again to rebuild it
+                                    from the fields above. Nothing is sent yet.
+                                </p>
+                            </div>
+                        </template>
+                        <template lwc:if={generatingDescription}>
+                            <div class="ai-status">
+                                <span class="spinner-box">
+                                    <lightning-spinner size="x-small" alternative-text="Generating"></lightning-spinner>
+                                </span>
+                                <span>Drafting description…</span>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Details + AI -->
+                    <div class="ai-block slds-var-m-top_medium">
+                        <label class="slds-form-element__label">Details</label>
+                        <lightning-input-rich-text
+                            value={draft.resumeDetails}
+                            onchange={handleResumeChange}
+                            disabled={busy}
+                        ></lightning-input-rich-text>
+                        <div class="ai-row">
+                            <lightning-input
+                                class="ai-instruction"
+                                variant="label-hidden"
+                                placeholder="AI instruction (optional) — e.g. add more depth and highlights"
+                                value={resumeInstruction}
+                                onchange={handleResumeInstruction}
+                                disabled={busy}
+                            ></lightning-input>
+                            <lightning-button
+                                label="Preview prompt"
+                                icon-name="utility:preview"
+                                onclick={handlePreviewResume}
+                                disabled={busy}
+                            ></lightning-button>
+                            <lightning-button
+                                variant="brand"
+                                label={resumeGenerateLabel}
+                                icon-name="utility:einstein"
+                                onclick={handleGenerateResume}
+                                disabled={busy}
+                            ></lightning-button>
+                        </div>
+                        <template lwc:if={previewingResume}>
+                            <div class="ai-status">
+                                <span class="spinner-box">
+                                    <lightning-spinner size="x-small" alternative-text="Loading"></lightning-spinner>
+                                </span>
+                                <span>Building prompt…</span>
+                            </div>
+                        </template>
+                        <template lwc:if={showResumePrompt}>
+                            <div class="prompt-preview">
+                                <div class="prompt-preview__head">
+                                    <span class="prompt-preview__title">
+                                        <lightning-icon
+                                            icon-name="utility:preview"
+                                            size="xx-small"
+                                            class="meta-icon"
+                                        ></lightning-icon>
+                                        Final prompt → {selectedModelLabel}
+                                    </span>
+                                    <span class="prompt-preview__actions">
+                                        <lightning-button-icon
+                                            icon-name="utility:copy_to_clipboard"
+                                            variant="border-filled"
+                                            alternative-text="Copy prompt"
+                                            title="Copy prompt"
+                                            onclick={handleCopyResumePrompt}
+                                        ></lightning-button-icon>
+                                        <lightning-button-icon
+                                            icon-name="utility:close"
+                                            variant="border-filled"
+                                            alternative-text="Hide prompt"
+                                            title="Hide prompt"
+                                            onclick={handleHideResumePrompt}
+                                        ></lightning-button-icon>
+                                    </span>
+                                </div>
+                                <textarea
+                                    class="prompt-preview__editor"
+                                    data-field="resume"
+                                    spellcheck="false"
+                                    oninput={handleResumePromptEdit}
+                                    disabled={busy}
+                                ></textarea>
+                                <p class="prompt-preview__note">
+                                    Edit this if you like — the exact text here is sent to the model
+                                    when you click Generate. Click Preview prompt again to rebuild it
+                                    from the fields above. Nothing is sent yet.
+                                </p>
+                            </div>
+                        </template>
+                        <template lwc:if={generatingResume}>
+                            <div class="ai-status">
+                                <span class="spinner-box">
+                                    <lightning-spinner size="x-small" alternative-text="Generating"></lightning-spinner>
+                                </span>
+                                <span>Drafting details…</span>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={handleCloseEditor}
+                        disabled={isSaving}
+                    ></lightning-button>
+                    <lightning-button
+                        class="slds-var-m-left_x-small"
+                        variant="brand"
+                        label="Save"
+                        onclick={handleSave}
+                        disabled={busy}
+                    ></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- ============ Delete confirm ============ -->
+    <template lwc:if={hasPendingDelete}>
+        <section role="alertdialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container confirm-container">
+                <header class="slds-modal__header">
+                    <h2 class="slds-modal__title">Delete item?</h2>
+                </header>
+                <div class="slds-modal__content slds-var-p-around_medium">
+                    <p>
+                        Are you sure you want to delete
+                        <strong>{pendingDeleteName}</strong>? This can't be undone.
+                    </p>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button
+                        label="Cancel"
+                        onclick={handleCancelDelete}
+                        disabled={isDeleting}
+                    ></lightning-button>
+                    <lightning-button
+                        class="slds-var-m-left_x-small"
+                        variant="destructive"
+                        label="Delete"
+                        onclick={handleConfirmDelete}
+                        disabled={isDeleting}
+                    ></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Resume_Details__c</fullName>
+    <description>Rich, in-depth details for this item — full text the AI agent can read to answer visitor questions. For a Resume item this is the complete resume (experience, skills, education, certifications); for other items (Project, Blog, YouTube, etc.) use it for any longer-form context, highlights, or supporting detail. Read by the agent through the ResumeDetailsProvider Apex action.</description>
+    <inlineHelpText>Rich, in-depth text the AI agent reads to answer visitor questions. For a Resume item, paste the full resume; for others, add longer-form context.</inlineHelpText>
+    <label>Details</label>
+    <length>131072</length>
+    <trackTrending>false</trackTrending>
+    <type>Html</type>
+    <visibleLines>25</visibleLines>
+</CustomField>

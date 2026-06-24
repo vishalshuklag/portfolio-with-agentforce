@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Portfolio Item AI Assistant</masterLabel>
+    <description>Generates or improves a Portfolio Item's Description or Resume Details using the Salesforce Models API, then saves it back to the record.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+        <target>lightning__AppPage</target>
+        <target>lightning__HomePage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property
+                name="modelName"
+                type="String"
+                label="Default AI model"
+                description="API name of the Salesforce-managed model used for AI generation (e.g. sfdc_ai__DefaultOpenAIGPT4OmniMini). Can also be changed at runtime in the editor."
+                default="sfdc_ai__DefaultOpenAIGPT4OmniMini"
+            />
+            <objects>
+                <object>Portfolio_Item__c</object>
+            </objects>
+        </targetConfig>
+        <targetConfig targets="lightning__AppPage,lightning__HomePage">
+            <property
+                name="modelName"
+                type="String"
+                label="Default AI model"
+                description="API name of the Salesforce-managed model used for AI generation (e.g. sfdc_ai__DefaultOpenAIGPT4OmniMini). Can also be changed at runtime in the editor."
+                default="sfdc_ai__DefaultOpenAIGPT4OmniMini"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

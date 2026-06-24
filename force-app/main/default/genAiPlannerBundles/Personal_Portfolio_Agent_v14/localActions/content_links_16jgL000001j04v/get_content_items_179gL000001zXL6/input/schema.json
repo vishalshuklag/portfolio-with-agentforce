@@ -1,0 +1,14 @@
+{
+  "required" : [ ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "itemType" : {
+      "title" : "Item Type",
+      "description" : "The type category to retrieve. Leave blank for all items. Type is a free-text value the owner configures — any value such as Blog, YouTube, Project, White Paper, etc. is valid.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

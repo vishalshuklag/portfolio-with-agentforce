@@ -1,0 +1,259 @@
+.card-title-text {
+    font-weight: 700;
+}
+
+.subtle {
+    color: #54698d;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+/* ---- List ---- */
+.item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.item-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid #e5e9f2;
+    border-radius: 0.65rem;
+    background: #ffffff;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.item-row:hover {
+    border-color: #c8d3ea;
+    box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+}
+
+.item-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.item-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.item-name {
+    font-weight: 700;
+    color: #16191f;
+    font-size: 1rem;
+}
+
+.status-pill {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+}
+
+.status-pill--active {
+    background: #e6f5ec;
+    color: #1a8a4a;
+}
+
+.status-pill--inactive {
+    background: #f0f1f3;
+    color: #6b7280;
+}
+
+.item-subtitle {
+    margin: 0.1rem 0 0;
+    font-size: 0.82rem;
+    color: #3a5ba0;
+    font-weight: 600;
+}
+
+.item-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    color: #54698d;
+    margin-top: 0.2rem;
+}
+
+.meta-icon {
+    --sds-c-icon-color-foreground-default: #54698d;
+}
+
+.item-meta a {
+    color: #3a5ba0;
+    text-decoration: none;
+}
+
+.item-meta a:hover {
+    text-decoration: underline;
+}
+
+.dot {
+    opacity: 0.5;
+}
+
+.item-desc {
+    margin: 0.35rem 0 0;
+    font-size: 0.85rem;
+    color: #54698d;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.item-actions {
+    display: flex;
+    gap: 0.35rem;
+    flex-shrink: 0;
+}
+
+.empty {
+    text-align: center;
+    color: #54698d;
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* ---- Editor modal ---- */
+.modal-body {
+    text-align: left;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.ai-block {
+    border: 1px dashed #c8d3ea;
+    border-radius: 0.6rem;
+    padding: 0.85rem;
+    background: #f8fafc;
+}
+
+.ai-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.ai-instruction {
+    flex: 1;
+}
+
+.ai-status {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #3a5ba0;
+}
+
+.spinner-box {
+    position: relative;
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* ---- Prompt preview ---- */
+.prompt-preview {
+    margin-top: 0.6rem;
+    border: 1px solid #c8d3ea;
+    border-radius: 0.5rem;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.prompt-preview__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.4rem 0.4rem 0.4rem 0.65rem;
+    background: #eef2fb;
+    border-bottom: 1px solid #dce3f2;
+}
+
+.prompt-preview__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #3a5ba0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.prompt-preview__actions {
+    display: inline-flex;
+    gap: 0.2rem;
+    flex-shrink: 0;
+}
+
+.prompt-preview__editor {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.7rem 0.8rem;
+    border: 0;
+    border-radius: 0;
+    resize: vertical;
+    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: #16191f;
+    background: #fbfcfe;
+    min-height: 11rem;
+    max-height: 26rem;
+}
+
+.prompt-preview__editor:focus {
+    outline: 2px solid #1b96ff;
+    outline-offset: -2px;
+}
+
+.prompt-preview__editor:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.prompt-preview__note {
+    margin: 0;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.72rem;
+    color: #54698d;
+    border-top: 1px solid #eef0f5;
+}
+
+.confirm-container {
+    max-width: 30rem;
+}
+
+@media (max-width: 480px) {
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Portfolio_ESW_Deployment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Embedded Service deployment name from code snippet</shortDescription>
+        <value>Portfolio_Agent</value>
+    </labels>
+    <labels>
+        <fullName>Portfolio_ESW_Org_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Embedded Service org ID from deployment code snippet</shortDescription>
+        <value>00DgK000007KkPF</value>
+    </labels>
+    <labels>
+        <fullName>Portfolio_ESW_Scrt2_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Embedded Service SCRT2 URL from deployment code snippet</shortDescription>
+        <value>https://vishalshukla-dev-ed.develop.my.salesforce-scrt.com</value>
+    </labels>
+    <labels>
+        <fullName>Portfolio_ESW_Site_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Embedded Service site URL from deployment code snippet</shortDescription>
+        <value>https://vishalshukla-dev-ed.develop.my.site.com/ESWPortfolioAgent1782130561285</value>
+    </labels>
+</CustomLabels>

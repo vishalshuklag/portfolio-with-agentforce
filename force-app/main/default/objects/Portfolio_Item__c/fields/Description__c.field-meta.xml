@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Description__c</fullName>
+    <description>Bio text, blog summary, role highlights, or any details the agent should share about this item.</description>
+    <inlineHelpText>Main text shown for this item — bio, blog summary, or role highlights. The AI agent can share this with site visitors.</inlineHelpText>
+    <label>Description</label>
+    <length>32768</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>5</visibleLines>
+</CustomField>

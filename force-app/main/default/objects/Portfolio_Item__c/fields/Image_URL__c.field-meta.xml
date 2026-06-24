@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Image_URL__c</fullName>
+    <description>Image or thumbnail shown on the public site for this item — a project screenshot, certification badge, article cover, or talk poster. Must be an HTTPS URL; external hosts need a CSP Trusted Site on the Experience Cloud site.</description>
+    <inlineHelpText>HTTPS image or thumbnail shown on the public site (project screenshot, cert badge, article cover). External hosts need a CSP Trusted Site on the site.</inlineHelpText>
+    <label>Image URL</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

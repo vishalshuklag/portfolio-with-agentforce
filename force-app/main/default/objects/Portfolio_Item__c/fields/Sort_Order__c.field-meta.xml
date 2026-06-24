@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Sort_Order__c</fullName>
+    <description>Controls the order items are returned to the agent. Lower numbers come first.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Controls the order items are shown and returned to the agent — lower numbers appear first.</inlineHelpText>
+    <label>Sort Order</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,14 @@
+{
+  "required" : [ ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "searchKeyword" : {
+      "title" : "Search Keyword",
+      "description" : "The visitor's question or key terms (e.g. 'Python experience', 'education', 'certifications') used to focus the answer on the relevant resume details.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

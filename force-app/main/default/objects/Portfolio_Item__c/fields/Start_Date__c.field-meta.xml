@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Start_Date__c</fullName>
+    <description>Start date for time-bound items (experience, education, projects). Powers the chronological timeline on the public site.</description>
+    <inlineHelpText>Start date for time-bound items (experience, education, projects). Powers the chronological timeline on the public site.</inlineHelpText>
+    <label>Start Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

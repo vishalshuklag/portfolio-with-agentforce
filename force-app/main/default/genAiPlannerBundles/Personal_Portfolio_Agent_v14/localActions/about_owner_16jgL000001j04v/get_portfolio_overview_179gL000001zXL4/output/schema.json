@@ -1,0 +1,34 @@
+{
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "categories" : {
+      "title" : "Categories",
+      "description" : "Every category in the portfolio. Each object has itemType (the category name) and count (how many items). Produce one reply line per object, listing every entry.",
+      "maxItems" : 2000,
+      "items" : {
+        "lightning:type" : "@apexClassType/c__PortfolioOverviewProvider$Category"
+      },
+      "lightning:type" : "lightning__listType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    },
+    "hasData" : {
+      "title" : "Has Data",
+      "description" : "True when the portfolio has at least one item",
+      "lightning:type" : "lightning__booleanType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : false,
+      "copilotAction:isUsedByPlanner" : false
+    },
+    "summary" : {
+      "title" : "Summary",
+      "description" : "Ready-to-read one-line summary of the portfolio's categories and counts",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isDisplayable" : true,
+      "copilotAction:isUsedByPlanner" : true
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

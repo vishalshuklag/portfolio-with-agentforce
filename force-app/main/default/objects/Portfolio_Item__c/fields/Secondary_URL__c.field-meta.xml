@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Secondary_URL__c</fullName>
+    <description>Optional second link for items that have two destinations — e.g. a project with both a live demo (URL) and a source repo (Secondary URL), or an article with a companion video.</description>
+    <inlineHelpText>Optional second link when an item has two destinations — e.g. a live demo plus a source repo, or an article plus a companion video.</inlineHelpText>
+    <label>Secondary URL</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

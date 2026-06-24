@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Portfolio Home</masterLabel>
+    <description>Public hero banner for an Experience Cloud site that welcomes guest visitors and invites them to chat with the Personal Portfolio Agent.</description>
+    <targets>
+        <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property
+                name="ownerName"
+                type="String"
+                label="Owner Name"
+                description="Portfolio owner's display name shown in the welcome headline."
+                default="the owner"
+            />
+            <property
+                name="roleTitle"
+                type="String"
+                label="Role / tagline (eyebrow)"
+                description="Short role shown above the headline, e.g. 'Salesforce Architect and Agentforce Builder'."
+            />
+            <property
+                name="headline"
+                type="String"
+                label="Headline (optional)"
+                description="Override the auto-generated welcome headline."
+            />
+            <property
+                name="location"
+                type="String"
+                label="Location (optional)"
+                description="Shown next to your social links in the hero, e.g. 'Bengaluru, India'."
+            />
+            <property
+                name="subheadline"
+                type="String"
+                label="Subheadline"
+                default="Ask the assistant in the corner anything about my background, experience, and projects."
+            />
+            <property
+                name="avatarUrl"
+                type="String"
+                label="Avatar image URL (optional)"
+                description="Profile photo shown in the hero. Leave blank to show the owner's initials. External image hosts must be added as CSP Trusted Sites."
+            />
+            <property
+                name="showItems"
+                type="Boolean"
+                label="Show portfolio items grid"
+                description="List active Portfolio Items as rich cards below the hero (YouTube previews, link previews, category filters)."
+                default="true"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

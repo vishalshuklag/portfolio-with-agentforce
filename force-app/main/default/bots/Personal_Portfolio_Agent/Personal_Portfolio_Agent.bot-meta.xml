@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bot xmlns="http://soap.sforce.com/2006/04/metadata">
+    <agentDSLEnabled>true</agentDSLEnabled>
+    <agentType>EinsteinServiceAgent</agentType>
+    <botMlDomain>
+        <label>Personal Portfolio Agent</label>
+        <name>Personal_Portfolio_Agent</name>
+    </botMlDomain>
+    <botSource>None</botSource>
+    <botUser>portfolio_agent_20260622100021@00DgK000007KkPFUA0.ext</botUser>
+    <description>Public-facing portfolio agent that dynamically shares the site owner&apos;s bio, resume, and any custom content types using AI-powered prompt templates, and captures visitor connection requests as Leads.</description>
+    <label>Personal Portfolio Agent</label>
+    <logPrivateConversationData>false</logPrivateConversationData>
+    <richContentEnabled>true</richContentEnabled>
+    <sessionTimeout>0</sessionTimeout>
+    <type>ExternalCopilot</type>
+</Bot>

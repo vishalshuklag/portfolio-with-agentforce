@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tech_Stack__c</fullName>
+    <description>Comma-separated tags rendered as chips on the public site — e.g. &quot;Apex, LWC, Agentforce, Node.js&quot;. Use for project tech stacks or skill tags.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Comma-separated tags rendered as chips on the site, e.g. &quot;Apex, LWC, Agentforce, Node.js&quot;. Use for project tech stacks or skill tags.</inlineHelpText>
+    <label>Tags / Tech Stack</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

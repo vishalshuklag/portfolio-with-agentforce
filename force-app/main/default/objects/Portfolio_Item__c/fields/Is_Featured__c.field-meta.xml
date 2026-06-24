@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_Featured__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>When checked, this item is highlighted in the &quot;Featured work&quot; section at the top of the public site.</description>
+    <inlineHelpText>Check to highlight this item in the &quot;Featured work&quot; section at the top of the public site.</inlineHelpText>
+    <label>Featured</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

@@ -1,0 +1,14 @@
+{
+  "required" : [ ],
+  "unevaluatedProperties" : false,
+  "properties" : {
+    "itemType" : {
+      "title" : "Item Type",
+      "description" : "The exact type category to retrieve (e.g. Bio, Skill, AI Tool, Service, Endorsement, Award, Community, Volunteering, Language, Interest, Now). Leave blank for all items. Type is a free-text value the owner configures.",
+      "lightning:type" : "lightning__textType",
+      "lightning:isPII" : false,
+      "copilotAction:isUserInput" : false
+    }
+  },
+  "lightning:type" : "lightning__objectType"
+}

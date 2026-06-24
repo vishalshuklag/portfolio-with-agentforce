@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Subtitle__c</fullName>
+    <description>Short supporting line shown under the title — role and company for experience, issuer for a certification, publication name for an article, or a one-line tagline for a project.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Short supporting line under the title — e.g. role and company, a certification&apos;s issuer, a publication name, or a one-line project tagline.</inlineHelpText>
+    <label>Subtitle</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

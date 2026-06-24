@@ -1,0 +1,86 @@
+{
+  "type": "sfdc_cms__view",
+  "title": "Home",
+  "contentBody": {
+    "component": {
+      "children": [
+        {
+          "children": [
+            {
+              "attributes": {
+                "backgroundImageConfig": "",
+                "backgroundImageOverlay": "rgba(0,0,0,0)",
+                "componentSpacerSize": "",
+                "dxpStyle": {},
+                "layoutDirectionDesktop": "row",
+                "layoutDirectionMobile": "column",
+                "layoutDirectionTablet": "column",
+                "maxContentWidth": "",
+                "sectionColumnGutterWidth": "",
+                "sectionConfig": "{\"UUID\":\"06a2bad4-2c7f-4a1f-a7a2-31acfb11ab45\",\"columns\":[{\"UUID\":\"989ab7a8-0004-4a7f-84a2-d2fb10b9e095\",\"columnName\":\"Column 1\",\"columnKey\":\"col1\",\"columnWidth\":\"12\",\"seedComponents\":null}]}",
+                "sectionMinHeight": "",
+                "sectionVerticalAlign": "flex-start"
+              },
+              "children": [
+                {
+                  "children": [
+                    {
+                      "attributes": {
+                        "avatarUrl": "https://orgfarm-d093537e95-dev-ed.develop.my.salesforce.com/sfc/p/gL00000S90VL/a/gL0000007oeP/B9ZxlJFcemtRa9iEaYdvEGIu9Jj_G9Kc0axIMIiSxZ0",
+                        "dxpStyle": {},
+                        "ownerName": "Vishal Shukla",
+                        "showItems": true,
+                        "subheadline": "Ask the assistant in the corner anything about my background, experience, and projects."
+                      },
+                      "definition": "c:portfolioHome",
+                      "id": "35b7c5b0-4be1-4ddd-a30f-078b4edb39f2",
+                      "type": "component"
+                    }
+                  ],
+                  "id": "989ab7a8-0004-4a7f-84a2-d2fb10b9e095",
+                  "name": "col1",
+                  "title": "Column 1",
+                  "type": "region"
+                }
+              ],
+              "definition": "community_layout:section",
+              "id": "06a2bad4-2c7f-4a1f-a7a2-31acfb11ab45",
+              "type": "component"
+            }
+          ],
+          "id": "e4a06016-2344-476f-92fa-46e03616ff22",
+          "name": "content",
+          "title": "Content",
+          "type": "region"
+        },
+        {
+          "children": [
+            {
+              "attributes": {
+                "customHeadTags": "",
+                "description": "",
+                "dxpStyle": {},
+                "pageTitle": "Home",
+                "recordId": "{!recordId}"
+              },
+              "definition": "community_builder:seoAssistant",
+              "id": "0f03dec0-09ac-49ed-b03a-48e5179a9f39",
+              "type": "component"
+            }
+          ],
+          "id": "78533118-52f6-43d1-92a6-680f83762e21",
+          "name": "sfdcHiddenRegion",
+          "title": "sfdcHiddenRegion",
+          "type": "region"
+        }
+      ],
+      "definition": "community_layout:sldsFlexibleLayout",
+      "id": "99e494f4-d125-46e7-b530-315896903048",
+      "type": "component"
+    },
+    "dataProviders": [],
+    "themeLayoutType": "Inner",
+    "viewType": "home"
+  },
+  "urlName": "home"
+}
